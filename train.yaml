@@ -1,0 +1,56 @@
+apiVersion: "kubeflow.org/v1"
+kind: PyTorchJob
+metadata:
+  name: cifar10-train
+spec:
+  elasticPolicy:
+    rdzvBackend: etcd
+    rdzvHost: etcd-service
+    rdzvPort: 2379
+    minReplicas: 1
+    maxReplicas: 128
+    maxRestarts: 100
+    metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          target:
+            type: Utilization
+            averageUtilization: 80
+  pytorchReplicaSpecs:
+    Worker:
+      replicas: 2
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: 374402744818.dkr.ecr.us-west-2.amazonaws.com/pytorch-cpu:latest
+              imagePullPolicy: IfNotPresent
+              env:
+              - name: PROCESSOR
+                value: "cpu"
+              command:
+                - python3
+                - -m
+                - torch.distributed.run
+                - /workspace/cifar10-model-train.py
+                - "--epochs=10"
+                - "--batch-size=128"
+                - "--workers=15"
+                - "--model-file=/efs-shared/cifar10-model.pth"
+                - "/efs-shared/cifar-10-batches-py/"
+              volumeMounts:
+                - name: efs-pv
+                  mountPath: /efs-shared
+                # The following enables the worker pods to use increased shared memory 
+                # which is required when specifying more than 0 data loader workers
+                - name: dshm
+                  mountPath: /dev/shm
+          volumes:
+            - name: efs-pv
+              persistentVolumeClaim:
+                claimName: efs-pvc
+            - name: dshm
+              emptyDir:     
+                medium: Memory
