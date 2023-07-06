@@ -29,7 +29,5 @@ spec:
               imagePullPolicy: Always
               command:
                 - "python3"
-                - m
-                - torch.distributed.run
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=3"
