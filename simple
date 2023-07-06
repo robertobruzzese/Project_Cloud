@@ -16,10 +16,12 @@ spec:
               imagePullPolicy: Always
               command:
                 - "python3"
+                - m
+                - torch.distributed.run
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=3"
     Worker:
-      replicas: 1
+      replicas: 3
       restartPolicy: OnFailure
       template:
         spec:
@@ -29,5 +31,7 @@ spec:
               imagePullPolicy: Always
               command:
                 - "python3"
+                - m
+                - torch.distributed.run
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=3"
