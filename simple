@@ -17,7 +17,7 @@ spec:
               command:
                 - "python3"
                 - "/opt/pytorch-mnist/mnist.py"
-                - "--epochs=1"
+                - "--epochs=3"
     Worker:
       replicas: 3
       restartPolicy: OnFailure
@@ -30,4 +30,4 @@ spec:
               command:
                 - "python3"
                 - "/opt/pytorch-mnist/mnist.py"
-                - "--epochs=1"
+                - "--epochs=3"
