@@ -4,14 +4,14 @@ metadata:
   name: pytorch-simple
   namespace: kubeflow
 spec:
-  elasticPolicy
-    metrics:
-      - type: Resource
-        resource:
-          name: cpu
-          target:
-            type: Utilization
-            averageUtilization: 80
+ elasticPolicy
+  metrics:
+  - type: Resource
+    resource:
+     name: cpu
+     target:
+      type: Utilization
+      averageUtilization: 80
   pytorchReplicaSpecs:
     Master:
       replicas: 1
