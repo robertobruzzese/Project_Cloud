@@ -4,13 +4,7 @@ metadata:
   name: pytorch-simple
   namespace: kubeflow
 spec:
-  elasticPolicy:
-    rdzvBackend: etcd
-    rdzvHost: etcd-service
-    rdzvPort: 2379
-    minReplicas: 1
-    maxReplicas: 128
-    maxRestarts: 100
+  elasticPolicy
     metrics:
       - type: Resource
         resource:
