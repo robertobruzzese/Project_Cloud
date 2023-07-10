@@ -4,7 +4,7 @@ metadata:
   name: pytorch-simple
   namespace: kubeflow
 spec:
- elasticPolicy
+ elasticPolicy:
   metrics:
   - type: Resource
     resource:
