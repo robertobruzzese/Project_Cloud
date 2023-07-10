@@ -12,7 +12,7 @@ spec:
      target:
       type: Utilization
       averageUtilization: 80
-  pytorchReplicaSpecs:
+ pytorchReplicaSpecs:
     Master:
       replicas: 1
       restartPolicy: OnFailure
