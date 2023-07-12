@@ -3,14 +3,6 @@ kind: PyTorchJob
 metadata:
   name: pytorch-simple
 spec:
- elasticPolicy:
-  metrics:
-  - type: Resource
-    resource:
-     name: cpu
-     target:
-      type: Utilization
-      averageUtilization: 80
  pytorchReplicaSpecs:
     Master:
       replicas: 1
