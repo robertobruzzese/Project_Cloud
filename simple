@@ -2,8 +2,9 @@ apiVersion: "kubeflow.org/v1"
 kind: PyTorchJob
 metadata:
   name: pytorch-simple
+  namespace: kubeflow
 spec:
- pytorchReplicaSpecs:
+  pytorchReplicaSpecs:
     Master:
       replicas: 1
       restartPolicy: OnFailure
@@ -18,7 +19,7 @@ spec:
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=3"
     Worker:
-      replicas: 2
+      replicas: 1
       restartPolicy: OnFailure
       template:
         spec:
